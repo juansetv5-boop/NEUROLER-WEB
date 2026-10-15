@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #1E293B;
+  background-color: #F8F9FA;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: #0F172A;
+}
+
+/* Glassmorphism Dark Theme Utility Classes */
+.glass-dark-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-dark-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-dark-card-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(168, 140, 207, 0.5);
+  box-shadow: 0 20px 48px 0 rgba(0, 0, 0, 0.45), 0 0 24px 0 rgba(168, 140, 207, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px);
+}
+
+.glass-dark-nav {
+  background: rgba(11, 23, 40, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-dark-pill {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Lenis Smooth Scroll Configuration */
+@import 'lenis/dist/lenis.css';
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Selection */
+::selection {
+  background-color: rgba(168, 140, 207, 0.4);
+  color: #ffffff;
+}
+
+/* Accessible focus */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #2CB1B4;
+  outline-offset: 2px;
+}
