@@ -143,28 +143,69 @@ export const BookingModal: React.FC = () => {
       ? 'Presencial (Pereira - Barrio Corales)' 
       : 'Virtual (Online)';
 
-    const selectedAge = ageObj?.label || '';
-    const esAdulto = selectedAge.includes('Adulto');
-    const textoEdad = esAdulto 
-      ? 'para un adulto' 
-      : `para un niño/a de ${selectedAge}`;
+    const esAdulto = selectedAgeId === 'adult';
+    const nombre = parentName.trim();
+    const notas = childInfo.trim();
 
-    let message = `Hola Leidy Rocío y equipo NEUROLER 👋, deseo agendar una valoración ${textoEdad}.\n\n`;
-    message += `📌 *Rango de Edad:* ${selectedAge} (${ageObj?.badge || ''})\n`;
-    message += `👩‍🏫 *Especialista / Línea:* ${specObj?.name || 'Orientación general'} (${specObj?.badge || ''})\n`;
-    message += `📍 *Modalidad:* ${modalityLabel}\n`;
+    let message = '';
 
-    if (parentName.trim()) {
-      message += `👤 *Nombre de contacto:* ${parentName.trim()}\n`;
+    if (esAdulto) {
+      if (nombre) {
+        message += `Hola Leidy Rocío y equipo NEUROLER, un gusto saludarlos. Mi nombre es ${nombre}.\n\n`;
+      } else {
+        message += `Hola Leidy Rocío y equipo NEUROLER, un gusto saludarlos.\n\n`;
+      }
+
+      message += `Me comunico porque me gustaría solicitar una consulta / orientación`;
+      message += modality === 'presencial' ? ` presencial en su sede de Pereira.\n\n` : ` en modalidad virtual.\n\n`;
+
+      message += `Te comparto los datos de mi solicitud:\n`;
+      message += `• *Consulta:* Adulto / Orientación personal\n`;
+
+      if (specialistId === 'orientacion') {
+        message += `• *Línea de interés:* Orientación personalizada según mi caso\n`;
+      } else {
+        message += `• *Especialista:* ${specObj?.name || 'Orientación'} (${specObj?.badge || ''})\n`;
+      }
+
+      message += `• *Modalidad:* ${modalityLabel}\n`;
+
+      if (notas) {
+        message += `• *Motivo o inquietud:* ${notas}\n`;
+      }
+
+      message += `\n¿Me podrían indicar qué horarios o espacios tienen disponibles para coordinar la cita? Quedo atento/a, muchas gracias.`;
+    } else {
+      if (nombre) {
+        message += `Hola Leidy Rocío y equipo NEUROLER, un gusto saludarlos. Mi nombre es ${nombre}.\n\n`;
+      } else {
+        message += `Hola Leidy Rocío y equipo NEUROLER, un gusto saludarlos.\n\n`;
+      }
+
+      const childMention = notas ? `para mi hijo/a (${notas})` : `para mi hijo/a`;
+      message += `Me gustaría agendar una valoración neuroeducativa ${childMention}`;
+      message += modality === 'presencial' ? ` de manera presencial en Pereira.\n\n` : ` en modalidad virtual.\n\n`;
+
+      message += `Te comparto los datos principales:\n`;
+      message += `• *Etapa / Rango de edad:* ${ageObj?.label || '3 a 5 años'} (${ageObj?.badge || ''})\n`;
+
+      if (specialistId === 'orientacion') {
+        message += `• *Enfoque:* Orientación personalizada según su necesidad\n`;
+      } else {
+        message += `• *Especialista / Área:* ${specObj?.name || 'Orientación'} (${specObj?.badge || ''})\n`;
+      }
+
+      message += `• *Modalidad:* ${modalityLabel}\n`;
+
+      if (notas) {
+        message += `• *Detalle o motivo:* ${notas}\n`;
+      }
+
+      message += `\n¿Podrían indicarme qué fechas o espacios tienen disponibles para agendarnos? Quedo muy atento/a, muchas gracias.`;
     }
-    if (childInfo.trim()) {
-      message += `👶 *Detalle estudiante / Notas:* ${childInfo.trim()}\n`;
-    }
-
-    message += `\nQuedo atento/a a los horarios disponibles para coordinar nuestra cita. ¡Muchas gracias!`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/573116340453?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/573127930898?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     closeBookingModal();
@@ -476,10 +517,10 @@ export const BookingModal: React.FC = () => {
                 <div className="space-y-3">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Nombre del acudiente / contacto:
+                      {selectedAgeId === 'adult' ? 'Tu nombre completo:' : 'Nombre del acudiente (Mamá, Papá o Tutor):'}
                     </label>
                     <TextInput
-                      placeholder="Ej: María Fernanda Gómez"
+                      placeholder={selectedAgeId === 'adult' ? 'Ej: Andrés Gómez' : 'Ej: María Fernanda Gómez'}
                       value={parentName}
                       onChange={(e) => setParentName(e.currentTarget.value)}
                       styles={{
@@ -499,10 +540,10 @@ export const BookingModal: React.FC = () => {
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Detalles del estudiante / Notas adicionales (Opcional):
+                      {selectedAgeId === 'adult' ? 'Motivo de consulta o notas (Opcional):' : 'Nombre de tu hijo/a y curso o notas (Opcional):'}
                     </label>
                     <TextInput
-                      placeholder="Ej: Camilo, 8 años - 3° de primaria"
+                      placeholder={selectedAgeId === 'adult' ? 'Ej: Orientación pedagógica / hábitos de estudio' : 'Ej: Camilo, 8 años - 3° de primaria'}
                       value={childInfo}
                       onChange={(e) => setChildInfo(e.currentTarget.value)}
                       styles={{
