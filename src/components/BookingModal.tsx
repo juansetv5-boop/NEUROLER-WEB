@@ -205,7 +205,7 @@ export const BookingModal: React.FC = () => {
     }
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/573127930898?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/573116340453?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     closeBookingModal();
