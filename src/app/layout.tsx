@@ -8,6 +8,22 @@ import { BookingModalProvider } from '@/context/BookingModalContext';
 import { BookingModal } from '@/components/BookingModal';
 import { SmoothScroll } from '@/components/SmoothScroll';
 
+import { Inter, Poppins } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+  weight: ['300', '400', '500', '600', '700'],
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+  weight: ['500', '600', '700', '800', '900'],
+});
+
 import { JsonLdSchema } from '@/components/JsonLdSchema';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuroler.com';
@@ -74,11 +90,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
       <head>
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-brand-200 selection:text-brand-900">
+      <body className={`${inter.className} min-h-screen flex flex-col antialiased selection:bg-brand-200 selection:text-brand-900`}>
         <JsonLdSchema />
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <BookingModalProvider>

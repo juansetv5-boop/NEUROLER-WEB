@@ -131,8 +131,8 @@ export const Hero: React.FC = () => {
                         alt={`Ilustración NEUROLER - ${activeTabContent.label}`}
                         width={300}
                         height={300}
-                        quality={100}
-                        unoptimized={true}
+                        quality={85}
+                        sizes="(max-width: 640px) 176px, (max-width: 1024px) 224px, 300px"
                         className={`w-full h-full pointer-events-none ${
                           activeTabContent.hasFrame
                             ? 'object-cover rounded-2xl'
@@ -312,8 +312,8 @@ export const Hero: React.FC = () => {
                       alt={`Ilustración NEUROLER - ${activeTabContent.label}`}
                       width={480}
                       height={480}
-                      quality={100}
-                      unoptimized={true}
+                      quality={85}
+                      sizes="(max-width: 1280px) 350px, 460px"
                       className={`w-full h-full pointer-events-none ${
                         activeTabContent.hasFrame
                           ? 'object-cover rounded-[28px]'
